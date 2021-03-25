@@ -21,9 +21,9 @@ public class BeatBoxFinal {  // implements MetaEventListener
     int nextNum;
     ObjectInputStream in;
     ObjectOutputStream out;
-    Vector<String> listVector = new Vector<String>();
+    Vector<String> listVector = new Vector<>();
     String userName ;
-    HashMap<String, boolean[]> otherSeqsMap = new HashMap<String, boolean[]>();
+    HashMap<String, boolean[]> otherSeqsMap = new HashMap<>();
     Sequencer sequencer;
     Sequence sequence;
     Sequence mySequence = null;
