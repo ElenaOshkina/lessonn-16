@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 class BankAccount {
+
     private int balance = 50;
 
     /**

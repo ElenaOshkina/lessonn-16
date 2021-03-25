@@ -38,6 +38,9 @@ public class BeatBoxFinalFirst {
             "Cowbell", "Vibraslap", "Low-mid Tom", "High Agogo",
             "Open Hi Conga"};
 
+    //Эти числа предсавляют собой фактически барабанные клавиши. Канал барабана - это что-то вроде фортепиано
+    //только каждая клавиша на нем - отдельный барабан
+    //Номер 35 - это клавиша для bass drum, 42 - closed hit-had и т.д.
     private final int[] instruments = {35, 42, 46, 38, 49, 39, 50, 60, 70, 72, 64, 56, 58, 47, 67, 63};
 
 
@@ -65,6 +68,7 @@ public class BeatBoxFinalFirst {
         theFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         BorderLayout layout = new BorderLayout();
         JPanel background = new JPanel(layout);
+        // позволяет создать поля между краями панели и местом размещения элементов
         background.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         checkboxList = new ArrayList<>();
@@ -120,11 +124,11 @@ public class BeatBoxFinalFirst {
         JPanel mainPanel = new JPanel(grid);
         background.add(BorderLayout.CENTER, mainPanel);
 
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 256; i++) {//создаем флажки, присваиваем им значения false, чтобы они не были установлены
             JCheckBox c = new JCheckBox();
             c.setSelected(false);
-            checkboxList.add(c);
-            mainPanel.add(c);
+            checkboxList.add(c);//добавляем в массив
+            mainPanel.add(c);//добавляем на панель
         }
 
         theFrame.setBounds(50, 50, 300, 300);
@@ -134,7 +138,7 @@ public class BeatBoxFinalFirst {
 
     public void setUpMidi() {
         try {
-            sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer(); //миди-код для получения синтезатора-секвенатора и дорожки
             sequencer.open();
             // sequencer.addMetaEventListener(this);
             sequence = new Sequence(Sequence.PPQ, 4);

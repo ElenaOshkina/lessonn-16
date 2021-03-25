@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RyanAndMonicaJob implements Runnable {
+
     private final BankAccount account = new BankAccount();
 
     public void run() {
@@ -22,7 +23,7 @@ public class RyanAndMonicaJob implements Runnable {
      * @param amount - сумма, которую хотим снять со счета
      */
     @SneakyThrows
-    private void makeWithdrawal(int amount) {
+    private synchronized void makeWithdrawal(int amount) {
         if (account.getBalance() >= amount) {
             System.out.println(Thread.currentThread().getName() + " собирается снять деньги, нужно " + amount + " рублей, баланс на момент проверки = " + account.getBalance());
 

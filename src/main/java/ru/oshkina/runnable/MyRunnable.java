@@ -4,6 +4,12 @@ public class MyRunnable implements Runnable {
 
     @Override
     public void run() { //именно сюда помещается задача, которую поток должен выполнять
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         go();
     }
 
