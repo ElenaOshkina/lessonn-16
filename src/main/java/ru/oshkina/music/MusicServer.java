@@ -1,13 +1,19 @@
-package ru.oshkina.demo3;
+package ru.oshkina.music;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
-public class MusicServer
-{
-    ArrayList clientOutputStreams;
+@Slf4j
+public class MusicServer {
+
+    private ArrayList<ObjectOutputStream> clientOutputStreams;
 
     public static void main(String[] args) {
         new MusicServer().go();
@@ -17,12 +23,14 @@ public class MusicServer
         ObjectInputStream in;
         Socket sock;
 
-        public ClientHandler(Socket clientSOcket) {
+        public ClientHandler(Socket clientSocket) {
             try {
-                sock = clientSOcket;
+                sock = clientSocket;
                 in = new ObjectInputStream(sock.getInputStream());
 
-            } catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                log.error("Exception:", ex);
+            }
         }
 
         public void run() {
@@ -34,17 +42,18 @@ public class MusicServer
                     System.out.println("read two objects");
                     tellEveryone(o1, o2);
                 }
-            } catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                log.error("Exception:", ex);
+            }
         }
     }
 
 
-
     public void go() {
-        clientOutputStreams = new ArrayList();
+        clientOutputStreams = new ArrayList<>();
         try {
             ServerSocket serverSock = new ServerSocket(4242);
-            while(true) {
+            while (true) {
                 Socket clientSocket = serverSock.accept();
                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                 clientOutputStreams.add(out);
@@ -53,17 +62,21 @@ public class MusicServer
                 t.start();
                 System.out.println("got a connection");
             }
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            log.error("Exception:", ex);
+        }
     }
 
     public void tellEveryone(Object one, Object two) {
-        Iterator it = clientOutputStreams.iterator();
-        while (it.hasNext()) {
+        Iterator<ObjectOutputStream> iterator = clientOutputStreams.iterator();
+        while (iterator.hasNext()) {
             try {
-                ObjectOutputStream out = (ObjectOutputStream) it.next();
+                ObjectOutputStream out = iterator.next();
                 out.writeObject(one);
                 out.writeObject(two);
-            } catch (Exception ex) { ex.printStackTrace(); }
+            } catch (Exception ex) {
+                log.error("Exception:", ex);
+            }
         }
     }
 }

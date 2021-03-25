@@ -1,5 +1,7 @@
 package ru.oshkina.demo2;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -9,20 +11,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+@Slf4j
 public class VerySimpleChatServer {
     List<PrintWriter> clientOutputStreams;
 
     public class ClientHandler implements Runnable {
         private BufferedReader reader;
-        private Socket socket;
 
         public ClientHandler(Socket clientSocket) {
             try {
-                socket = clientSocket;
-                InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
+                InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
                 reader = new BufferedReader(inputStreamReader);
             } catch (Exception ex) {
-                ex.printStackTrace();
+                log.error("Exception:", ex);
             }
         }
 
@@ -35,7 +36,7 @@ public class VerySimpleChatServer {
                     toTellEveryOne(message);
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                log.error("Exception:", ex);
             }
         }
     }
@@ -59,7 +60,7 @@ public class VerySimpleChatServer {
             }
 
         } catch (Exception ex) {
-            ex.printStackTrace();
+            log.error("Exception:", ex);
         }
     }
 
@@ -71,7 +72,7 @@ public class VerySimpleChatServer {
                 writer.println(message);
                 writer.flush();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                log.error("Exception:", ex);
             }
         }
     }

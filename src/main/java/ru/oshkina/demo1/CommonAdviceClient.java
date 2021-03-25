@@ -1,12 +1,15 @@
-package ru.oshkina;
+package ru.oshkina.demo1;
 
-import java.io.BufferedInputStream;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+@Slf4j
 public class CommonAdviceClient {
+
     public void go() {
         try {
             //создаем соединение через сокет к приложению, работающему на порту 4242
@@ -23,7 +26,7 @@ public class CommonAdviceClient {
             reader.close();//здесь закрываются все потоки
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Exception:", e);
         }
     }
 
