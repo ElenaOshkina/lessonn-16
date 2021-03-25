@@ -17,7 +17,7 @@ import java.util.*;
 
 
 @Slf4j
-public class BeatBoxFinalFirst {  // implements MetaEventListener
+public class BeatBoxFinalFirst {
 
     private JList<String> incomingList;
     private JTextField userMessage;
@@ -131,7 +131,6 @@ public class BeatBoxFinalFirst {  // implements MetaEventListener
         theFrame.pack();
         theFrame.setVisible(true);
     }
-
 
     public void setUpMidi() {
         try {

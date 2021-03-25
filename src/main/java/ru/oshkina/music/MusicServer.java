@@ -21,12 +21,12 @@ public class MusicServer {
 
     public class ClientHandler implements Runnable {
         ObjectInputStream in;
-        Socket sock;
+        Socket socket;
 
         public ClientHandler(Socket clientSocket) {
             try {
-                sock = clientSocket;
-                in = new ObjectInputStream(sock.getInputStream());
+                socket = clientSocket;
+                in = new ObjectInputStream(socket.getInputStream());
 
             } catch (Exception ex) {
                 log.error("Exception:", ex);
