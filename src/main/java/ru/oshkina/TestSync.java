@@ -1,7 +1,7 @@
 package ru.oshkina;
 
 public class TestSync implements Runnable {
-    private volatile int balance = 1; //todo: подумать как сделать так, чтобы переменная не кешировалась в каждом потоке
+    private volatile int balance = 1;
 
     @Override
     public void run() {
